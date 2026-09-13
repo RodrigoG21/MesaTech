@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: bff
+
+server:
+  port: 8080
+
+# URLs de los microservicios internos (sobreescritas por docker-compose o EC2)
+services:
+  solicitudes:
+    url: ${SOLICITUDES_URL:http://localhost:8081}
+  catalogo:
+    url: ${CATALOGO_URL:http://localhost:8082}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${ENTRA_ISSUER_URI}
+          audiences: ${ENTRA_AUDIENCE}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
