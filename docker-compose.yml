@@ -1,0 +1,100 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: mesatech-postgres
+    environment:
+      POSTGRES_DB: mesatech
+      POSTGRES_USER: mesatech
+      POSTGRES_PASSWORD: mesatech_dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mesatech-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mesatech"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ms-catalogo:
+    build:
+      context: ./ms-catalogo
+      dockerfile: Dockerfile
+    container_name: mesatech-ms-catalogo
+    ports:
+      - "8092:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - DB_URL=jdbc:postgresql://postgres:5432/mesatech
+      - DB_USER=mesatech
+      - DB_PASSWORD=mesatech_dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - mesatech-network
+
+  ms-solicitudes:
+    build:
+      context: ./ms-solicitudes
+      dockerfile: Dockerfile
+    container_name: mesatech-ms-solicitudes
+    ports:
+      - "8091:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - DB_URL=jdbc:postgresql://postgres:5432/mesatech
+      - DB_USER=mesatech
+      - DB_PASSWORD=mesatech_dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ms-catalogo:
+        condition: service_started
+    networks:
+      - mesatech-network
+
+  bff:
+    build:
+      context: ./bff
+      dockerfile: Dockerfile
+    container_name: mesatech-bff
+    ports:
+      - "8093:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SOLICITUDES_URL=http://ms-solicitudes:8081
+      - CATALOGO_URL=http://ms-catalogo:8082
+    depends_on:
+      - ms-solicitudes
+      - ms-catalogo
+    networks:
+      - mesatech-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mesatech-frontend
+    ports:
+      - "3001:3000"
+    environment:
+      - VITE_AUTH_ENABLED=false
+      - VITE_MOCK_ROLE=CLIENTE
+      - VITE_MOCK_NAME=Usuario Demo
+      - VITE_MOCK_EMAIL=demo@empresa.cl
+    depends_on:
+      - bff
+    networks:
+      - mesatech-network
+
+networks:
+  mesatech-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
