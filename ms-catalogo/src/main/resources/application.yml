@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: ms-catalogo
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/mesatech}
+    username: ${DB_USER:mesatech}
+    password: ${DB_PASSWORD:mesatech_dev}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+server:
+  port: 8082
+
+---
+# Configuracion adicional para perfil prod (se activa con SPRING_PROFILES_ACTIVE=prod)
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    show-sql: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${ENTRA_ISSUER_URI}
+          audiences: ${ENTRA_AUDIENCE}
+
+---
+# Configuracion adicional para perfil dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
