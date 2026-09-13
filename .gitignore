@@ -34,6 +34,9 @@ yarn-error.log*
 # Docker
 .dockerignore
 
+# Claude Code (configuracion local del entorno)
+.claude/
+
 # OS
 .DS_Store
 Thumbs.db
