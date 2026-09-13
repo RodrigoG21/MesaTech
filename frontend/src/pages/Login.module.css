@@ -1,0 +1,107 @@
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(150deg, #071624 0%, #0F3460 55%, #144078 100%);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 48px 40px 40px;
+  width: 390px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.brandMark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #0F3460, #1B5EA0);
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+}
+
+.brandMark svg { width: 20px; height: 20px; }
+
+.brandName {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.brandName b { color: #E8A838; font-weight: 700; }
+
+.tagline {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+.divider span {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.msBtn {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  transition: all 0.14s;
+  box-shadow: var(--shadow-sm);
+}
+
+.msBtn:hover {
+  border-color: #0078D4;
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1), var(--shadow);
+}
+
+.note {
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.note svg { width: 12px; height: 12px; flex-shrink: 0; }

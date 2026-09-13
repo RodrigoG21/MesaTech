@@ -1,0 +1,41 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.CREADA    { background: rgba(59, 130, 246, 0.1); color: #2563EB; }
+.ASIGNADA  { background: rgba(139, 92, 246, 0.1); color: #7C3AED; }
+.EN_PROCESO{ background: rgba(232, 168, 56, 0.12); color: #B45309; }
+.RESUELTA  { background: rgba(16, 185, 129, 0.1); color: #059669; }
+.CERRADA   { background: rgba(100, 116, 139, 0.1); color: #475569; }
+.CANCELADA { background: rgba(239, 68, 68, 0.1); color: #DC2626; }
+
+.prio {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+}
+
+.p1 { background: #F0FDF4; color: #166534; }
+.p2 { background: #FEFCE8; color: #854D0E; }
+.p3 { background: #FFF7ED; color: #9A3412; }
+.p4 { background: #FFF1F2; color: #9F1239; }
