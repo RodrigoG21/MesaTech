@@ -17,12 +17,37 @@ spring:
   config:
     activate:
       on-profile: prod
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/mesatech}
+    username: ${DB_USER:mesatech}
+    password: ${DB_PASSWORD:mesatech_dev}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: ${ENTRA_ISSUER_URI}
           audiences: ${ENTRA_AUDIENCE}
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root: INFO
+    com.mesatech: DEBUG
 
 ---
 spring:
