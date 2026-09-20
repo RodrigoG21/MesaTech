@@ -21,7 +21,10 @@ export default function OperadorDashboard() {
       const params = { page, size: 10 };
       if (filtroEstado) params.estado = filtroEstado;
       const res = await api.get('/v2/solicitudes', params);
-      setData(res);
+setData({
+  content: res.contenido || [],
+  totalElements: res.totalElementos || 0,
+});
     } catch {
       setData({ content: [], totalElements: 0 });
     } finally {
